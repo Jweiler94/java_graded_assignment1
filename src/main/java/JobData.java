@@ -5,15 +5,15 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
+
 
 /**
  * Created by LaunchCode
  */
 public class JobData {
+
 
     private static final String DATA_FILE = "src/main/resources/job_data.csv";
     private static boolean isDataLoaded = false;
@@ -51,6 +51,8 @@ public class JobData {
         loadData();
 
         return allJobs;
+
+
     }
 
     /**
@@ -90,12 +92,25 @@ public class JobData {
      * @return      List of all jobs with at least one field containing the value
      */
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
-
         // load data, if not already loaded
         loadData();
 
-        // TODO - implement this method
-        return null;
+        ArrayList<HashMap<String, String>> jobsByValue = allJobs;
+        ArrayList<HashMap<String, String>> returnArrayList = new ArrayList<>();
+
+            int i = 0;
+            while( i < jobsByValue.size()) {
+                HashMap<String, String> searchMap = jobsByValue.get(i);
+
+                if (searchMap.containsValue(value)) {
+                    returnArrayList.add(searchMap);
+                    i++;
+                } else {
+                    i++;
+                }
+            }
+
+        return returnArrayList;
     }
 
     /**

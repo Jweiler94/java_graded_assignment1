@@ -10,6 +10,7 @@ public class TechJobs {
 
     public static void main (String[] args) {
 
+
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
         columnChoices.put("core competency", "Skill");
@@ -38,6 +39,7 @@ public class TechJobs {
 
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
+
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
@@ -58,6 +60,7 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
+                JobData.findByValue(searchTerm);
 
                 if (searchField.equals("all")) {
                     printJobs(JobData.findByValue(searchTerm));
@@ -118,8 +121,11 @@ public class TechJobs {
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
+
+
         if (!someJobs.isEmpty()) {
             for (int entries = 0; entries < someJobs.size(); entries++) {
+
 
                 HashMap<String, String> jobEntry = someJobs.get(entries);
                 String[] keyArray = new String[jobEntry.size()];
@@ -129,13 +135,16 @@ public class TechJobs {
                     k++;
                 }
 
+                int loopCount = 0;
+
                 do {
                     System.out.println("\n" + "*****");
                     for (int q = 0; q < keyArray.length; q++) {
                         System.out.println(keyArray[q] + ": " + jobEntry.get(keyArray[q]));
                     }
                     System.out.println("*****");
-                } while (entries <someJobs.size());
+                    loopCount++;
+                } while (loopCount == 0);
             }
         } else {
             System.out.println("No Results");
