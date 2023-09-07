@@ -5,7 +5,6 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -13,7 +12,6 @@ import java.util.*;
  * Created by LaunchCode
  */
 public class JobData {
-
 
     private static final String DATA_FILE = "src/main/resources/job_data.csv";
     private static boolean isDataLoaded = false;
@@ -25,7 +23,7 @@ public class JobData {
      * without duplicates, for a given column.
      *
      * @param field The column to retrieve values from
-     * @return List of all of the values of the given field
+     * @return List of all the values of the given field
      */
     public static ArrayList<String> findAll(String field) {
 
@@ -57,11 +55,9 @@ public class JobData {
 
     /**
      * Returns results of search the jobs data by key/value, using
-     * inclusion of the search term.
-     *
+     * inclusion of the search term.*
      * For example, searching for employer "Enterprise" will include results
-     * with "Enterprise Holdings, Inc".
-     *
+     * with "Enterprise Holdings, Inc".*
      * @param column   Column that should be searched.
      * @param value Value of teh field to search for
      * @return List of all jobs matching the criteria
@@ -95,15 +91,11 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-
-
         ArrayList<HashMap<String, String>> jobsByValue = allJobs;
         ArrayList<HashMap<String, String>> returnArrayList = new ArrayList<>();
 
             int i = 0;
             while( i < jobsByValue.size()) {
-
-
 
                 if (jobsByValue.get(i).containsValue(value)) {
                     returnArrayList.add(jobsByValue.get(i));
@@ -136,30 +128,26 @@ public class JobData {
 
             allJobs = new ArrayList<>();
 
+
+
             // Put the records into a more friendly format
+
             for (CSVRecord record : records) {
+
                 HashMap<String, String> newJob = new HashMap<>();
 
-                    String[] keyArray = new String[newJob.size()];
-
-                    int k = 0;
-                    for (String jobKey : newJob.keySet()) {
-                        keyArray[k] = jobKey;
-                        k++;
-
-
-                        for (int m = 0; m < keyArray.length; m++) {
-                            String = newJob.get(keyArray[m]);
-                                    newJob.get(keyArray[m]).toLowerCase();
-                        }
-                    }
-
                 for (String headerLabel : headers) {
-                    newJob.put(headerLabel, record.get(headerLabel));
+                    String recordString = record.get(headerLabel);
+                    recordString = recordString.toLowerCase();
+                    newJob.put(headerLabel, recordString);
                 }
 
                 allJobs.add(newJob);
+
             }
+
+
+
 
             // flag the data as loaded, so we don't do it twice
             isDataLoaded = true;
