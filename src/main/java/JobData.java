@@ -95,19 +95,21 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+
+
         ArrayList<HashMap<String, String>> jobsByValue = allJobs;
         ArrayList<HashMap<String, String>> returnArrayList = new ArrayList<>();
 
             int i = 0;
             while( i < jobsByValue.size()) {
-                HashMap<String, String> searchMap = jobsByValue.get(i);
 
-                if (searchMap.containsValue(value)) {
-                    returnArrayList.add(searchMap);
-                    i++;
-                } else {
-                    i++;
+
+
+                if (jobsByValue.get(i).containsValue(value)) {
+                    returnArrayList.add(jobsByValue.get(i));
                 }
+
+                i++;
             }
 
         return returnArrayList;
@@ -137,6 +139,20 @@ public class JobData {
             // Put the records into a more friendly format
             for (CSVRecord record : records) {
                 HashMap<String, String> newJob = new HashMap<>();
+
+                    String[] keyArray = new String[newJob.size()];
+
+                    int k = 0;
+                    for (String jobKey : newJob.keySet()) {
+                        keyArray[k] = jobKey;
+                        k++;
+
+
+                        for (int m = 0; m < keyArray.length; m++) {
+                            String = newJob.get(keyArray[m]);
+                                    newJob.get(keyArray[m]).toLowerCase();
+                        }
+                    }
 
                 for (String headerLabel : headers) {
                     newJob.put(headerLabel, record.get(headerLabel));
