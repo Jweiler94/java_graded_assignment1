@@ -5,11 +5,12 @@ import static java.lang.Character.*;
 /**
  * Created by LaunchCode
  */
+
 public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
 
         // Initialize our field map with key/name pairs
@@ -61,9 +62,9 @@ public class TechJobs {
                 // What is their search term?
                 System.out.println("\nSearch term:");
                 String searchTerm = in.nextLine();
-                searchTerm = searchTerm.toLowerCase();
+                String searchTermCheck = searchTerm.toLowerCase();
 
-                ArrayList<HashMap<String, String>> allFields = JobData.findByValue(searchTerm);
+                ArrayList<HashMap<String, String>> allFields = JobData.findByValue(searchTermCheck);
 
 
                 assert searchField != null;
@@ -118,79 +119,37 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
-    }
-
-
-    public static String valueOf(char[] arr) {
-
-        StringBuilder s = new StringBuilder("" + (arr[0]));
-        for (int i = 1; i <arr.length; i++) {
-            s.append(arr[i]);
-        }
-        return s.toString();
-    }
-
-
-    public static String PrintCase(String input) {
-        char[] printCaseArray = input.toCharArray();
-        Character first = printCaseArray[0];
-        first = toUpperCase(first);
-        printCaseArray[0] = first;
-
-        for (int i = 0; i < printCaseArray.length; i++) {
-            if (isWhitespace(printCaseArray[i])) {
-                if( isLetter(printCaseArray[i + 1])) {
-                    printCaseArray[i + 1] = toUpperCase(printCaseArray[i + 1]);
-                }
-            }
-        }
-
-        return valueOf(printCaseArray);
     }
 
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        if (!someJobs.isEmpty()) {
-
-            for (int entries = 0; entries < someJobs.size(); entries++) {
-
-                for (HashMap<String, String> jobEntry : someJobs) {
-
-                    jobEntry = someJobs.get(entries);
-
-                    String[] keyArray = new String[jobEntry.size()];
-
-                    int keyArrayInt = 0;
-
-                    for (String jobKey : jobEntry.keySet()) {
-                        keyArray[keyArrayInt] = jobKey;
-                        keyArrayInt++;
-                    }
-
-                    for (String value : jobEntry.values()) {
-                        jobEntry.replace(value, PrintCase(value));
-                    }
-
-                    int loopCount = 0;
-
-                    do {
-                        System.out.println("\n" + "*****");
-                        for (int q = 0; q < jobEntry.size(); q++) {
-                            System.out.println(keyArray[q] + ": " + jobEntry.get(keyArray[q]));
-                        }
-                        System.out.println("*****");
-                        loopCount++;
-                    } while (loopCount == 0);
-                }
-            }
-            } else {
+        if (someJobs.isEmpty()) {
             System.out.println("No Results");
+        }
+
+        for (HashMap<String, String> jobEntry : someJobs) {
+
+            int loopCount = 0;
+
+            do {
+                System.out.println("\n" + "*****");
+
+                for (String key : jobEntry.keySet()) {
+                    System.out.println(key + ": " + jobEntry.get(key));
+                }
+
+                System.out.println("*****");
+                loopCount++;
+            } while (loopCount == 0);
         }
     }
 }
+
+
+
 
