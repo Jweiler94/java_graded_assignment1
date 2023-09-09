@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+import java.util.Iterator;
+
 
 
 /**
@@ -75,12 +77,26 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
 
         return jobs;
+    }
+
+
+
+    //Class to remove duplicates from array lists to avoid removing using iteration
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list) {
+        ArrayList<T> newList = new ArrayList<T>();
+
+        for (T element : list) {
+            if (!newList.contains(element)) {
+                newList.add(element);
+            }
+        }
+        return newList;
     }
 
     /**
@@ -89,6 +105,7 @@ public class JobData {
      * @param value The search term to look for
      * @return      List of all jobs with at least one field containing the value
      */
+
     public static ArrayList<HashMap<String, String>> findByValue(String value) {
         // load data, if not already loaded
         loadData();
@@ -96,6 +113,10 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> returnArrayList = new ArrayList<>();
         Integer[] indexOfReturns = new Integer[allJobsCaseTest.size()];
+
+        Arrays.fill(indexOfReturns, 0);
+
+
         int i = 0;
 
                 for (HashMap<String, String> jobs: allJobsCaseTest) {
@@ -118,10 +139,17 @@ public class JobData {
 
                 }
 
+                System.out.print(allJobsCaseTest);
+
                 for (int m = 0; m < indexOfReturns.length; m++) {
-                    returnArrayList.add(allJobs.get(indexOfReturns[m]));
+                    if(indexOfReturns[m] != null || indexOfReturns[m+1].equals(indexOfReturns[m+2])) {
+                            returnArrayList.add(allJobs.get(indexOfReturns[m]));
+                    } else {
+                        break;
+                    }
                 }
-    return returnArrayList;
+
+        return removeDuplicates(returnArrayList);
     }
 
     /**
