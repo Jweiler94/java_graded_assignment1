@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
-import java.util.Iterator;
 
 
 
@@ -20,7 +19,6 @@ public class JobData {
     private static boolean isDataLoaded = false;
 
     private static ArrayList<HashMap<String, String>> allJobs;
-    private static ArrayList<HashMap<String, String>> allJobsCaseTest;
 
     /**
      * Fetch list of all values from loaded data,
@@ -112,12 +110,32 @@ public class JobData {
 
 
         ArrayList<HashMap<String, String>> returnArrayList = new ArrayList<>();
-        Integer[] indexOfReturns = new Integer[allJobsCaseTest.size()];
+       // Integer[] indexOfReturns = new Integer[allJobsCaseTest.size()];
 
-        Arrays.fill(indexOfReturns, 0);
+        //Arrays.fill(indexOfReturns, 0);
 
 
-        int i = 0;
+        for (HashMap<String, String> jobs : allJobs) {
+
+            for (HashMap.Entry<String, String> entries : jobs.entrySet()) {
+                String entryValue = entries.getValue();
+                if (entryValue.equalsIgnoreCase(value)) {
+                    returnArrayList.add(jobs);
+                    break;
+                } else if (entryValue.toLowerCase().contains(value.toLowerCase())) {
+                    returnArrayList.add(jobs);
+                    break;
+                }
+            }
+        }
+        return removeDuplicates(returnArrayList);
+    }
+
+
+
+
+
+        /*int i = 0;
 
                 for (HashMap<String, String> jobs: allJobsCaseTest) {
 
@@ -149,20 +167,16 @@ public class JobData {
                     }
                 }
 
-        return removeDuplicates(returnArrayList);
-    }
+        return removeDuplicates(returnArrayList);*/
 
-    /**
-     * Read in data from a CSV file and store it in a list
-     */
-    private static void loadData() {
+            public static void loadData() {
 
         // Only load data once
         if (isDataLoaded) {
             return;
         }
 
-        try {
+        /*try {
 
             // Open the CSV file and set up pull out column header info and records
             Reader in = new FileReader(DATA_FILE);
@@ -196,7 +210,7 @@ public class JobData {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
 
 
         try {
@@ -224,11 +238,9 @@ public class JobData {
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
-        } catch (IOException e) {
+    } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-
-    }
-
+            }
 }
