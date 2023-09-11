@@ -108,12 +108,7 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-
         ArrayList<HashMap<String, String>> returnArrayList = new ArrayList<>();
-       // Integer[] indexOfReturns = new Integer[allJobsCaseTest.size()];
-
-        //Arrays.fill(indexOfReturns, 0);
-
 
         for (HashMap<String, String> jobs : allJobs) {
 
@@ -131,87 +126,12 @@ public class JobData {
         return removeDuplicates(returnArrayList);
     }
 
-
-
-
-
-        /*int i = 0;
-
-                for (HashMap<String, String> jobs: allJobsCaseTest) {
-
-                    String[] values = new String[jobs.size()];
-                    int v = 0;
-
-                    for (String entries : jobs.values()) {
-                        values[v] = entries;
-                        v++;
-                    }
-
-                    for (int c = 0; c < values.length; c++) {
-                        if(values[c].contains(value)){
-                            indexOfReturns[i] = allJobsCaseTest.indexOf(jobs);
-                            i++;
-                            break;
-                        }
-                    }
-
-                }
-
-                System.out.print(allJobsCaseTest);
-
-                for (int m = 0; m < indexOfReturns.length; m++) {
-                    if(indexOfReturns[m] != null || indexOfReturns[m+1].equals(indexOfReturns[m+2])) {
-                            returnArrayList.add(allJobs.get(indexOfReturns[m]));
-                    } else {
-                        break;
-                    }
-                }
-
-        return removeDuplicates(returnArrayList);*/
-
             public static void loadData() {
 
         // Only load data once
         if (isDataLoaded) {
             return;
         }
-
-        /*try {
-
-            // Open the CSV file and set up pull out column header info and records
-            Reader in = new FileReader(DATA_FILE);
-            CSVParser parser = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
-            List<CSVRecord> records = parser.getRecords();
-            Integer numberOfColumns = records.get(0).size();
-            String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
-
-            allJobsCaseTest = new ArrayList<>();
-
-
-            // Put the records into a more friendly format
-
-            for (CSVRecord record : records) {
-
-                HashMap<String, String> newJobCaseTest = new HashMap<>();
-
-                for (String headerLabelTest : headers) {
-                    String recordStringTest = record.get(headerLabelTest);
-                    recordStringTest = recordStringTest.toLowerCase();
-                    newJobCaseTest.put(headerLabelTest, recordStringTest);
-                }
-
-                allJobsCaseTest.add(newJobCaseTest);
-            }
-
-                // flag the data as loaded, so we don't do it twice
-            isDataLoaded = true;
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
 
         try {
 
